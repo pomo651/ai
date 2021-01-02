@@ -26,7 +26,7 @@ def cut_audio_clip(startTS, endTS, imgName):
   print("clip %s if from %s to %s" %(imgName, t1, t2))
 
   newAudio = AudioSegment.from_mp3("output.mp3")
-  newAudio = newAudio[convertToNanoSeconds(t1) : convertToNanoSeconds(t2)]
+  newAudio = newAudio[convertToNanoSeconds(t1) + 50 : convertToNanoSeconds(t2) - 50]
   newAudio.export("/Users/binyugao/@github/ai/media/" + imgName + ".mp3", format="mp3") #Exports to a wav file in the current path.
 
 
