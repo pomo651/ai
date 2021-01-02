@@ -42,17 +42,18 @@ def combine_image_audio(f):
   )
 
 
-def combine_audio_video(f, fps=50):
+def combine_audio_video(f, fps=25):
   import moviepy.editor as mpe
   video_path = "/Users/binyugao/@github/ai/media/" + f
   audio_path = "/Users/binyugao/@github/ai/media/" + f + ".mp3"
+  output_path = "/Users/binyugao/@github/ai/media/" + f + ".mp4"
 
   audio_background = mpe.AudioFileClip(audio_path)
   my_clip = mpe.VideoFileClip(video_path)
   duration = audio_background.duration
 
   final_clip = my_clip.set_audio(audio_background).set_duration(duration)
-  final_clip.write_videofile(video_path, fps=fps)
+  final_clip.write_videofile(output_path, fps=fps)
 
 
 def main():
@@ -96,14 +97,14 @@ def main():
     if ".jpg" in f:
       combine_image_audio(f)
     if ".mp4" in f:
-      combine_audio_video(f, fps=25)
+      combine_audio_video(f)
 
   # merge video clips into one 
   clips = []
   for f in media:
-    clipPath = "/Users/binyugao/@github/ai/media/" + f
-    if not ".mp4" in f:
-      clipPath = clipPath + ".mp4"
+    clipPath = "/Users/binyugao/@github/ai/media/" + f + ".mp4"
+    # if not ".mp4" in f:
+    #   clipPath = clipPath + ".mp4"
     clips.append(VideoFileClip(clipPath))    
 
   final_video = concatenate_videoclips(clips)
