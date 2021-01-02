@@ -4,6 +4,7 @@ sys.path.insert(1, "/Users/binyugao/@github/img2video")
 
 # Self
 from img2video import create_single_video
+from cutAudio import cut_audio_clip
 
 def main():
     prevTimeStamp = "00:00:00,000 --> 00:00:00,000"
@@ -25,6 +26,7 @@ def main():
             # 将prevMedia 此时做成processedVideo 并且放好
             if len(prevMedia) > 0:
                 create_single_video(prevTimeStamp, curTimeStamp, prevMedia)
+                cut_audio_clip(prevTimeStamp, curTimeStamp, prevMedia)
 
             # 更新media
             prevMedia = line.strip()
@@ -34,6 +36,7 @@ def main():
 
     # 处理Last media, read to last line
     create_single_video(prevTimeStamp, curTimeStamp, prevMedia)
+    cut_audio_clip(prevTimeStamp, curTimeStamp, prevMedia)
     
 
 main()
