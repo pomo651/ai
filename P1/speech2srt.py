@@ -3,6 +3,9 @@ import time
 import os
 from google.cloud import speech
 
+import transcript 
+text = transcript.TRANSCRIPT 
+
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../audio2timestamp.json"
 
 def long_running_recognize(uri="./output.mp3", sample_rate_hertz=16000, language_code="en"):

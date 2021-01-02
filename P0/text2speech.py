@@ -20,10 +20,13 @@ python quickstart.py
 """
 
 import os
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="./mypjkey.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"]="../mypjkey.json"
 from google.cloud import texttospeech
 
-text = "The Cavaliers in the 17-18 season are really internal and external. Even Lebron James was extremely tired. The record was once struggling. Seeing the emperor's twilight, the pack of wolves stared at his throne. Both sides bite to the last second of overtime. The knight's life is hanging by a thread, and Lebron personally holds the knife. This is my time. It’s too early to replace me. In 2018, compared to the immediate playoffs, the free market that summer was already undercurrent. The 17-year war of riding and bravery, with the joining of Durant, broke the evenly matched situation between the two sides. Lebron was defeated again. The Cavaliers management not only lost in the arms race, but even their second-in-chief Irvin could not be retained. The Cavaliers eventually only traded for Thomas from Boston. This made Lebron very dissatisfied."
+import transcript 
+text = transcript.TRANSCRIPT 
+
+# text = "The Cavaliers in the 17-18 season are really internal and external. Even Lebron James was extremely tired. The record was once struggling. Seeing the emperor's twilight, the pack of wolves stared at his throne. Both sides bite to the last second of overtime. The knight's life is hanging by a thread, and Lebron personally holds the knife. This is my time. It’s too early to replace me. In 2018, compared to the immediate playoffs, the free market that summer was already undercurrent. The 17-year war of riding and bravery, with the joining of Durant, broke the evenly matched situation between the two sides. Lebron was defeated again. The Cavaliers management not only lost in the arms race, but even their second-in-chief Irvin could not be retained. The Cavaliers eventually only traded for Thomas from Boston. This made Lebron very dissatisfied."
 
 # Instantiates a client
 

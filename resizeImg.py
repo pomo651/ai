@@ -1,5 +1,12 @@
 import cv2
 import numpy as np
+import os
+from os.path import isfile, join
+
+import sys
+sys.path.insert(1, "/Users/binyugao/@github/ai")
+
+mediaFolder = "./media"
 
 # Resizes a image and maintains aspect ratio
 def maintain_aspect_ratio_resize(image, width=None, height=None, inter=cv2.INTER_AREA):
@@ -56,3 +63,31 @@ def resize_image_720P(image):
     # cv2.waitKey(0)
 
     return f
+
+
+def excludeFile(f):
+    return f[0] != '.' 
+
+
+def main():
+    imgFolder = "./images/"
+    files = [f for f in os.listdir(imgFolder) if excludeFile(f)]
+    files.sort()
+    # print(files)
+    
+    for f in files:
+        filename = imgFolder + f
+
+        # Reading each file
+        img = cv2.imread(filename, cv2.IMREAD_UNCHANGED)
+
+        # Discard alpha channel
+        img = img[:,:,:3]
+
+        # Normalize image to 720P, empty space filled with black color
+        img = resize_image_720P(img)
+
+        # Save resized image to media folder 
+        cv2.imwrite("/Users/binyugao/@github/ai/media/" + f, img)
+
+main()
