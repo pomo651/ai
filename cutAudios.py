@@ -42,6 +42,19 @@ def combine_image_audio(f):
   )
 
 
+def combine_audio_video(f, fps=50):
+  import moviepy.editor as mpe
+  video_path = "/Users/binyugao/@github/ai/media/" + f
+  audio_path = "/Users/binyugao/@github/ai/media/" + f + ".mp3"
+
+  audio_background = mpe.AudioFileClip(audio_path)
+  my_clip = mpe.VideoFileClip(video_path)
+  duration = audio_background.duration
+
+  final_clip = my_clip.set_audio(audio_background).set_duration(duration)
+  final_clip.write_videofile(video_path, fps=fps)
+
+
 def main():
   prevTimeStamp = "00:00:00,000 --> 00:00:00,000"
   curTimeStamp = "00:00:00,000 --> 00:00:00,000"
@@ -56,8 +69,10 @@ def main():
       if "-->" in line: 
           curTimeStamp = line
 
+      file_types = [".jpg", ".mp4"]
+      # if ".jpg" in line: # 碰到mediaFile后是将之前的Media做好排序
 
-      if ".jpg" in line: # 碰到mediaFile后是将之前的Media做好排序
+      if any(f in line for f in file_types):
 
           # 将prevMedia 此时做成processedVideo 并且放好
           if len(prevMedia) > 0:
@@ -78,12 +93,17 @@ def main():
 
   # combine each image with audio into one video clip
   for f in media:
-    combine_image_audio(f)
-  
+    if ".jpg" in f:
+      combine_image_audio(f)
+    if ".mp4" in f:
+      combine_audio_video(f, fps=25)
+
   # merge video clips into one 
   clips = []
   for f in media:
-    clipPath = "/Users/binyugao/@github/ai/media/" + f + ".mp4"
+    clipPath = "/Users/binyugao/@github/ai/media/" + f
+    if not ".mp4" in f:
+      clipPath = clipPath + ".mp4"
     clips.append(VideoFileClip(clipPath))    
 
   final_video = concatenate_videoclips(clips)
